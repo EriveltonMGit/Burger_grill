@@ -1,0 +1,68 @@
+<!-- NAV HEADER -->
+<nav id="nav_menu">
+    <a href="#section-1"><img id="logo_burger_grill" src="assets/img/logo/logo.png" alt="logo burger grill"></a>
+    <ul class="ul_nav">
+        <li class="nav-item">
+            <a class="nav-link active" href="#reservas">Reservas</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#servicos">Serviços</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link " href="#cardapio">
+                Cardápio
+            </a>
+
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="#depoimentos">Depoimentos</a>
+        </li>
+
+        <!-- CARRINHO -->
+        <div id="meuCarrinho">
+            <button type="button" id="btn_carrinho"  data-toggle="modal" data-target="#myModal"
+                >Meu Carrinho
+                <i class="bi bi-bag-fill"></i>
+                <i class="bi bi-bag-heart-fill"></i>
+            </button>
+
+        </div>
+
+
+    </ul>
+
+
+
+
+
+</nav>
+
+
+<!-- CARRINHO DE PEDIDOS -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Produtos <i class="bi bi-bag-heart"></i></h5>
+                <button type="button" class="close" onclick="closeCarrinho()" data-dismiss="modal" aria-label="Close">
+                    <i class="bi bi-x-square-fill"></i>
+                </button>
+            </div>
+            <div class="modal-body produtos">
+                <!-- Lista de produtos -->
+                <div id="carrinho-produtos"></div>
+                <!-- Div Preço -->
+                <div id="preco">
+                    <h1>Total</h1>
+                    <h3>R$: 00.00</h3>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+                <button type="button" class="btn btn-primary" onclick="abrirEndereco()">Próximo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+   
