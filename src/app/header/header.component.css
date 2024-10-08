@@ -198,19 +198,29 @@
   color: var(--color-text);
 }
 
+
+
+
+
+
+
+
+
+
+
+
 /* MIDIA SCREEM 480PX */
 @media screen and (max-width: 480px) {
   /* NAV_MENU */
   #nav_menu {
     width: 90%;
-    height: 10vh;
+    height: 8vh;
     display: flex;
     align-items: center;
     justify-content: center;
     position: fixed;
     z-index: 100;
     top: 1vh;
-    position: absolute;
     margin-left: 5%;
     margin-right: 5%;
     backdrop-filter: blur(6px);
@@ -235,8 +245,8 @@
   /* logo_burger_grill */
    
   #logo_burger_grill {
-    width: 20vw;
-    height: 100%;
+    width: 15vw;
+   
     position: absolute;
     bottom: 0;
     left: 0;
@@ -328,25 +338,38 @@
     display: none;
   }
   #myModal{
-  width: 95%;
-  margin-left: 5%;
+  width: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+  
  
     
   }
+/* modal-dialog */
+.modal-dialog{
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  position:absolute;
+  margin-left: 5%;
+  margin-right: 5%;
+}
   /* modal-title */
   .modal-title {
     font-size: 3.5vw;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 1vw;
-   
+    width: 80%;
   }
 
   .modal-title .bi-bag-heart {
     color: var(--color-primary);
-   font-size: 4vw;
+   font-size: 6vw;
+
   }
 
   /* close */
@@ -354,7 +377,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-  
+    width: 100%;
   }
 
   .close {
@@ -364,17 +387,18 @@
     border: none;
     background-color: inherit;
     padding: 0.5rem;
-    width: 10vw;
+    width: 15vw;
     font-size: 5vw;
     border-radius: 4px;
+    border: 1px solid black;
 
   }
 
   /* modal-dialog */
   .modal-dialog {
    width: 90%;
-   height: 110vh;
-    
+   height: 100vh;
+ 
   }
 
   .modal-content {
@@ -384,6 +408,7 @@
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
+
     
   }
 
@@ -395,6 +420,7 @@
     flex-direction: column;
     width: 100%;
     height: 20%;
+   
   }
 
   /* PRODUTOS */
@@ -411,6 +437,7 @@
     right: 0;
     top: 0;
     font-size: 3vw;
+    
 
   }
 
@@ -426,16 +453,16 @@
     position: absolute;
     right: 0;
     bottom:0;
-
+    font-size: 5vw;
   }
 
   #preco h1 {
-    font-size: 3vw;
+    font-size: 7vw;
     font-family: Sora;
   }
 
   #preco h3 {
-    font-size: 2vw;
+    font-size: 5vw;
     font-family: Sora;
     color: var(--color-text);
   }

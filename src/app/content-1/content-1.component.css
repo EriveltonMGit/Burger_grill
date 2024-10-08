@@ -424,11 +424,11 @@
     justify-content: center;
     gap: 3vw;
     padding: 1rem;
-    margin-top: 3vh;
+    margin-top: 5vh;
   }
 
   .container-icon a .bi {
-    font-size: 5vw;
+    font-size: 8vw;
     padding: 0.5rem;
     border-radius: 20%;
     color: #000;

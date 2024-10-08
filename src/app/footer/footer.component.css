@@ -49,7 +49,7 @@ footer h1{
 @media screen and (max-width:480px) {
     footer{
         width: 100%;
-        height: 20vh;
+        height: 30vh;
         background-color: var(--color-primary);
         display: flex;
         align-items: center;
@@ -62,28 +62,29 @@ footer h1{
     }
     footer h1{
         font-family: 'Poppins';
-        font-size: 3vw;
+        font-size: 5vw;
         color: var(--color-text);
     }
     #logo{
-        width: 10vh;
-        object-fit: contain;
+        width: 7vh;
+        object-fit: contain;    
     }
     /* // icon */
     .icon{
-        
-        width: 15%;
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: space-around;
         gap: 4px;
+        
     }
     .icon .bi{
-       font-size: 5vw;
+       font-size: 7vw;
         padding: 0.3rem;
        border-radius: 30%;
        cursor: pointer;
        transition: 0.5s;
+       
     }
     .icon .bi:hover{
         scale: 1.3;

@@ -49,7 +49,7 @@ function increment(elementId) {
 function exibirMensagem() {
   var mensagem = document.getElementById("mensagem");
   mensagem.style.display = "block";
-  mensagem.style.marginTop = "25vh";
+  mensagem.style.marginTop = "15vh";
 }
 
 function esconderMensagem() {
@@ -152,13 +152,16 @@ function atualizarCarrinhoNoHTML(produtos) {
     item.style.display = 'flex';
     item.style.alignItems = 'center';
     item.style.justifyContent = 'space-between';
+    item.style.position= 'relative';
+    item.style.overflowY= 'scroll';
     item.style.margin = '0 auto';
     item.style.gap = '2vw';
-    item.style.height = '20%';
+    item.style.height = '25%';
     item.style.fontSize = '1vw';
     item.style.marginTop = '1.5vh';
     item.style.color = 'black';
-    item.style.fontSize = '1.2vw';
+    item.style.fontSize = '2.5vw';
+    item.style.flexWrap = '2vw';
     item.style.borderRadius = '5px';
 
     let nomeSpan = document.createElement('span');
@@ -180,11 +183,15 @@ function atualizarCarrinhoNoHTML(produtos) {
     botaoRemover.textContent = 'Remover';
     botaoRemover.style.borderRadius = '10px';
     botaoRemover.style.boxShadow = '-7px 7px 1rem black';
-    botaoRemover.style.padding = '0.1rem';
+    botaoRemover.style.padding = '0.5rem';
     botaoRemover.style.backgroundColor = 'red';
     botaoRemover.style.color = 'white';
     botaoRemover.style.border = 'none';
-    botaoRemover.style.fontSize = '1vw';
+    botaoRemover.style.fontSize = '2vw';
+    botaoRemover.style.position = 'absolute';
+    botaoRemover.style.width = '40%';
+    botaoRemover.style.bottom = '0px';
+    botaoRemover.style.right = '0px';
 
     botaoRemover.addEventListener('click', function () {
       removerDoCarrinho(produto.id);
