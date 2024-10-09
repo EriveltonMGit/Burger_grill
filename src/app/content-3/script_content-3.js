@@ -49,7 +49,7 @@ function increment(elementId) {
 function exibirMensagem() {
   var mensagem = document.getElementById("mensagem");
   mensagem.style.display = "block";
-  mensagem.style.marginTop = "15vh";
+  mensagem.style.marginTop = "20vh";
 }
 
 function esconderMensagem() {
