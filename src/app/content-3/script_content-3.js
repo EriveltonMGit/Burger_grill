@@ -1,308 +1,149 @@
-
-// FUNÇAO PARA INCREMENTAR E DECREMENTAR
-function decrement(elementId) {
-  var valorP = document.getElementById(elementId);
-
-  if (valorP) {
-    var valorAtual = parseInt(valorP.innerText, 10);
-    var novoValor = valorAtual - 1;
-
-    // Verifica se o novo valor é menor que 0
-    if (novoValor < 0) {
-      novoValor = 0; // Ajusta o valor para 0
-      alert('O valor não pode ser menor que 0!');
-    }
-
-    // Atualiza o valor no DOM
-    valorP.innerText = novoValor;
-
-    console.log("Valor final após ajuste: " + valorP.innerText);
-  } else {
-    console.error("Elemento com ID '" + elementId + "' não encontrado.");
-  }
-}
-
-
-
-//FUNÇAO incrementar
+// Função para incrementar a quantidade de um produto
 function increment(elementId) {
-  var valorP = document.getElementById(elementId);
+  const element = document.getElementById(elementId);
 
-  if (valorP) {
-    var novoValor = parseInt(valorP.innerText, 10);
-    valorP.innerText = novoValor + 1;
+  if (element) {
+    let currentValue = parseInt(element.innerText, 10) || 0;
+    element.innerText = currentValue + 1;
 
-
-    var carrinho = document.getElementById('carrinho-produtos');
-
+    const carrinho = document.getElementById('carrinho-produtos');
     if (carrinho && (carrinho.style.display === 'none' || carrinho.style.display === '')) {
       carrinho.style.display = 'block';
     }
   } else {
-    console.error("Element with ID '" + elementId + "' not found.");
+    console.error(`Elemento com ID '${elementId}' não encontrado.`);
   }
 }
 
+// Função para decrementar a quantidade de um produto
+function decrement(elementId) {
+  const element = document.getElementById(elementId);
 
+  if (element) {
+    let currentValue = parseInt(element.innerText, 10) || 0;
+    let newValue = currentValue > 0 ? currentValue - 1 : 0;
 
-// FUNÇÃO PARA EXIBIR MENSAGEM
-function exibirMensagem() {
-  var mensagem = document.getElementById("mensagem");
-  mensagem.style.display = "block";
-  mensagem.style.marginTop = "20vh";
+    if (newValue === 0 && currentValue > 0) {
+      alert('O valor não pode ser menor que 0!');
+    }
+
+    element.innerText = newValue;
+  } else {
+    console.error(`Elemento com ID '${elementId}' não encontrado.`);
+  }
 }
 
-function esconderMensagem() {
-  var mensagem = document.getElementById("mensagem");
-  mensagem.style.display = "none";
+// Função para exibir uma mensagem temporária
+function toggleMessage(show = true) {
+  const message = document.getElementById("mensagem");
+  if (message) {
+    message.style.display = show ? "block" : "none";
+    message.style.marginTop = show ? "20vh" : "0";
+  }
 }
 
-
+// Função para adicionar produtos ao carrinho
 function adicionarAoCarrinho(elementId, nomeProduto, valorProduto) {
-  var mensagem = document.getElementById('mensagem');
-  var carrinho = document.getElementById('buttonFlutuanteCarrinho');
-
-  let valorProdutoFloat = parseFloat(valorProduto);
+  const valorProdutoFloat = parseFloat(valorProduto);
 
   if (isNaN(valorProdutoFloat) || valorProdutoFloat <= 0) {
     alert('Por favor, adicione um valor válido maior que zero!');
     return;
   }
 
-  // Verifica se há produtos no carrinho no localStorage
   let produtosNoCarrinho = JSON.parse(localStorage.getItem('produtosNoCarrinho')) || [];
 
-  // Recupera todos os elementos de quantidade de produtos
-  var quantidadeElementos = document.querySelectorAll('[id^="quantidade-"]');
-  var quantidadeProdutos = [];
+  const quantidadeElementos = document.querySelectorAll('[id^="quantidade-"]');
+  const quantidadeProdutos = Array.from(quantidadeElementos).map(el => parseInt(el.innerText, 10) || 0);
 
-  // Itera sobre os elementos para obter as quantidades
-  quantidadeElementos.forEach(function (elemento) {
-    quantidadeProdutos.push(parseInt(elemento.innerText));
-  });
-
-  // Verifica se a quantidade de ambos os produtos é válida
-  if (quantidadeProdutos.every(function (quantidade) {
-    return quantidade <= 0;
-  })) {
-    alert('Por favor, adicione uma quantidade válida maior que zero!');
+  if (quantidadeProdutos.every(qtd => qtd <= 0)) {
+    alert('Adicione uma quantidade válida maior que zero!');
     return;
   }
 
-  // Adiciona os produtos ao carrinho
-  quantidadeProdutos.forEach(function (quantidade, index) {
+  quantidadeProdutos.forEach((quantidade, index) => {
     if (quantidade > 0) {
-      let produto = {
-        id: produtosNoCarrinho.length + 1, // Adiciona um novo ID único
+      produtosNoCarrinho.push({
+        id: produtosNoCarrinho.length + 1,
         nome: `${nomeProduto} - Produto ${index + 1}`,
         valor: (valorProdutoFloat * quantidade).toFixed(2),
-        quantidade: quantidade
-      };
-      produtosNoCarrinho.push(produto);
+        quantidade
+      });
     }
   });
 
   localStorage.setItem('produtosNoCarrinho', JSON.stringify(produtosNoCarrinho));
-
-  // Atualiza o carrinho e a quantidade de produtos no HTML
   atualizarCarrinhoNoHTML(produtosNoCarrinho);
+
   document.getElementById('quantidadeProdutos').textContent = produtosNoCarrinho.length;
+  toggleMessage(true);
 
-  console.log('Produtos adicionados ao carrinho!');
-
-  mensagem.style.display = 'block';
-
-  setTimeout(function () {
-    exibirMensagem();
-  }, 3000);
-
-  setTimeout(function () {
-    esconderMensagem();
-  }, 6000);
-
-  if (carrinho.style.display === 'none' || carrinho.style.display === '') {
-    carrinho.style.display = 'flex';
-    carrinho.style.alignItems = 'center';
-    carrinho.style.justifyContent = 'center';
-  }
-
+  setTimeout(() => toggleMessage(false), 3000);
   resetarContadores();
 }
 
+// Função para resetar os contadores de produtos
 function resetarContadores() {
-  // Obtém todos os elementos que têm a classe 'inputValor'
-  let elementosInputValor = document.querySelectorAll('.inputValor');
-
-  // Itera sobre todos os elementos e define o valor do contador para 0
-  elementosInputValor.forEach(function (elemento) {
-    elemento.querySelector('p').innerText = '0';
-  });
+  document.querySelectorAll('.inputValor p').forEach(el => el.innerText = '0');
 }
 
+// Função para atualizar o carrinho no HTML
 function atualizarCarrinhoNoHTML(produtos) {
-  let carrinho = document.getElementById('carrinho-produtos');
+  const carrinho = document.getElementById('carrinho-produtos');
   carrinho.innerHTML = '';
+  let total = 0;
 
-  let total = 0; // Inicializa o total como zero
-
-  for (const produto of produtos) {
-    let item = document.createElement('div');
-    item.style.border = '1px solid black';
-    item.style.width = '100%';
-    item.style.display = 'flex';
-    item.style.alignItems = 'center';
-    item.style.justifyContent = 'space-between';
-    item.style.position= 'relative';
-    item.style.overflowY= 'scroll';
-    item.style.margin = '0 auto';
-    item.style.gap = '2vw';
-    item.style.height = '25%';
-    item.style.fontSize = '1vw';
-    item.style.marginTop = '1.5vh';
-    item.style.color = 'black';
-    item.style.fontSize = '2.5vw';
-    item.style.flexWrap = '2vw';
-    item.style.borderRadius = '5px';
-
-    let nomeSpan = document.createElement('span');
-    nomeSpan.textContent = produto.nome;
-
-    let quantidadeSpan = document.createElement('span');
-    quantidadeSpan.textContent = `Qtd: ${produto.quantidade}`;
-    
-    let valorSpan = document.createElement('span');
-    valorSpan.textContent = `R$ ${(produto.valor / produto.quantidade).toFixed(2)} cada`;
-    
-    let valorTotalSpan = document.createElement('span');
-    valorTotalSpan.textContent = `Total: R$ ${produto.valor}`;
-    
-    // Calcula o total somando o valor do produto
+  produtos.forEach(produto => {
     total += parseFloat(produto.valor);
 
-    let botaoRemover = document.createElement('button');
-    botaoRemover.textContent = 'Remover';
-    botaoRemover.style.borderRadius = '10px';
-    botaoRemover.style.boxShadow = '-7px 7px 1rem black';
-    botaoRemover.style.padding = '0.5rem';
-    botaoRemover.style.backgroundColor = 'red';
-    botaoRemover.style.color = 'white';
-    botaoRemover.style.border = 'none';
-    botaoRemover.style.fontSize = '2vw';
-    botaoRemover.style.position = 'absolute';
-    botaoRemover.style.width = '40%';
-    botaoRemover.style.bottom = '0px';
-    botaoRemover.style.right = '0px';
+    const item = document.createElement('div');
+    item.classList.add('carrinho-item');
 
-    botaoRemover.addEventListener('click', function () {
-      removerDoCarrinho(produto.id);
-    });
-
-    item.appendChild(nomeSpan);
-    item.appendChild(quantidadeSpan);
-    item.appendChild(valorSpan);
-    item.appendChild(valorTotalSpan);
-    item.appendChild(botaoRemover);
+    item.innerHTML = `
+      <span>${produto.nome}</span>
+      <span>Qtd: ${produto.quantidade}</span>
+      <span>R$ ${(produto.valor / produto.quantidade).toFixed(2)} cada</span>
+      <span>Total: R$ ${produto.valor}</span>
+      <button class="remover" onclick="removerDoCarrinho(${produto.id})">Remover</button>
+    `;
 
     carrinho.appendChild(item);
-  }
+  });
 
-  // Atualiza o valor total na seção de preço
-  let precoTotal = document.querySelector('#preco h3');
-  precoTotal.textContent = `R$ ${total.toFixed(2)}`;
+  document.querySelector('#preco h3').textContent = `R$ ${total.toFixed(2)}`;
 }
 
-
-// FUNÇÃO PARA REMOVER O PRODUTO DA LISTA DO CARRINHO
+// Função para remover produto do carrinho
 function removerDoCarrinho(idProduto) {
   let produtosNoCarrinho = JSON.parse(localStorage.getItem('produtosNoCarrinho')) || [];
+  produtosNoCarrinho = produtosNoCarrinho.filter(produto => produto.id !== idProduto);
 
-  // Encontrar o índice do produto no carrinho com base no id
-  const index = produtosNoCarrinho.findIndex(produto => produto.id === idProduto);
-
-  if (index !== -1) {
-    // Verificar se o valor do produto é zero
-    if (parseInt(produtosNoCarrinho[index].valor) === 0) {
-      // Se o valor for zero, remover o produto do carrinho e do localStorage
-      produtosNoCarrinho.splice(index, 1);
-      localStorage.setItem('produtosNoCarrinho', JSON.stringify(produtosNoCarrinho));
-    } else {
-      // Se o valor não for zero, remover apenas do carrinho
-      produtosNoCarrinho.splice(index, 1);
-      localStorage.setItem('produtosNoCarrinho', JSON.stringify(produtosNoCarrinho));
-    }
-
-    // Atualizar o carrinho no HTML
-    atualizarCarrinhoNoHTML(produtosNoCarrinho);
-
-    // Atualizar a quantidade de produtos no elemento HTML
-    let quantidadeElement = document.getElementById('quantidadeProdutos');
-    quantidadeElement.textContent = produtosNoCarrinho.length;
-  }
-}
-
-
-
-
-// Função para carregar o carrinho ao carregar a página
-function carregarCarrinho() {
-  // Recupera produtos do localStorage
-  let produtosNoCarrinho = JSON.parse(localStorage.getItem('produtosNoCarrinho')) || [];
-
-  // Atualiza o carrinho no HTML
+  localStorage.setItem('produtosNoCarrinho', JSON.stringify(produtosNoCarrinho));
   atualizarCarrinhoNoHTML(produtosNoCarrinho);
 
-  // Atualiza a quantidade de produtos no elemento HTML
   document.getElementById('quantidadeProdutos').textContent = produtosNoCarrinho.length;
 }
 
-// Chama a função para carregar o carrinho ao carregar a página
+// Função para carregar o carrinho ao carregar a página
+function carregarCarrinho() {
+  const produtosNoCarrinho = JSON.parse(localStorage.getItem('produtosNoCarrinho')) || [];
+  atualizarCarrinhoNoHTML(produtosNoCarrinho);
+  document.getElementById('quantidadeProdutos').textContent = produtosNoCarrinho.length;
+}
+
+// Inicializa o carrinho ao carregar a página
 window.addEventListener('load', carregarCarrinho);
 
-
-
-
-
-// FUNÇAO PARA ABRIR O CARRINHO PLEO BUTTON FLUTUANTE
+// Função para abrir o modal do carrinho
 function abrirCarrinhoFlutuante() {
-  
- 
-  // Atualiza os produtos no carrinho
-  let produtosNoCarrinho = JSON.parse(localStorage.getItem('produtosNoCarrinho')) || [];
+  const produtosNoCarrinho = JSON.parse(localStorage.getItem('produtosNoCarrinho')) || [];
   atualizarCarrinhoNoHTML(produtosNoCarrinho);
-
-  // Usa o jQuery para abrir o modal
   $('#myModal').modal('show');
 }
 
+// Função para fechar o modal do carrinho
 function closeCarrinho() {
-  $('#myModal').modal('hide'); // Fecha o modal utilizando o método Bootstrap
-}
-
-
-
-
-
-
-
-
-function abrirCard() {
-  const verMais = document.getElementById('verMais');
-  const cardEscondido = document.getElementById('cardEscondido');
-
-  // Verifica se o texto é "verMais" e alterna para "voltar", ou vice-versa
-  if (verMais.style.display === 'block' || verMais.style.display === '') {
-    verMais.style.display = 'none'
-  }
-
-  // Alterna a exibição do card escondido
-  cardEscondido.style.display = (cardEscondido.style.display === 'none' || cardEscondido.style.display === '') ?
-    'flex' : 'none';
-
-  // Define o estilo do card escondido
-  if (cardEscondido.style.display === 'flex') {
-    cardEscondido.style.justifyContent = 'space-around';
-    cardEscondido.style.flexDirection = 'row';
-  }
+  $('#myModal').modal('hide');
 }
 
 // Lógica para mostrar os cards de hambúrguer

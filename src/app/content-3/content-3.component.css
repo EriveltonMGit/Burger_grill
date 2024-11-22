@@ -273,7 +273,8 @@
   border-radius: 10px;
   padding: 1rem;
   position: fixed;
-  top: 0;
+ top: 0;
+  margin-top: 20vh;
   right: 0;
   margin-right: 4vw;
   margin-top: 25vh;
@@ -801,7 +802,7 @@
     top: 0;
     right: 0;
     margin-right: 4vw;
-    margin-top: 5vh;
+    margin-top: 20vh;
     position: fixed;
     animation-name: slide-from-top;
     animation-duration: 1s;
@@ -1331,7 +1332,7 @@
     top: 0;
     right: 0;
     margin-right: 4vw;
-    margin-top: 5vh;
+    margin-top: 20vh;
     position: fixed;
     animation-name: slide-from-top;
     animation-duration: 1s;
@@ -1862,7 +1863,7 @@
     top: 0;
     right: 0;
     margin-right: 4vw;
-    margin-top: 5vh;
+    margin-top: 20vh;
     position: fixed;
     animation-name: slide-from-top;
     animation-duration: 1s;
@@ -2392,7 +2393,7 @@
     top: 0;
     right: 0;
     margin-right: 4vw;
-    margin-top: 5vh;
+    margin-top: 20vh;
     position: fixed;
     animation-name: slide-from-top;
     animation-duration: 1s;

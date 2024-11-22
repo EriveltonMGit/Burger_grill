@@ -110,6 +110,10 @@
   display: none;
 }
 
+
+
+/* CARRINHO DE PRODUTOS */
+
 /* modal-title */
 .modal-title {
   font-size: 2vw;
@@ -117,6 +121,7 @@
   align-items: center;
   justify-content: center;
   gap: 1vw;
+  
 }
 
 .modal-title .bi-bag-heart {
@@ -142,34 +147,43 @@
 
 /* modal-dialog */
 .modal-dialog {
-  max-width: 90%;
+  max-width: 80%;
 }
 
 .modal-content {
   height: 90vh;
+
 }
 
 /* modal-body */
 .modal-body {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+
+ 
 }
 
 /* PRODUTOS */
 #carrinho-produtos {
-  width: 70%;
+  width: 60vw;
   height: 90%;
   backdrop-filter: blur(10px);
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: auto;
   flex-direction: column;
   border: 1px solid black;
+  gap: 2vh;
+  padding-bottom: 10px;
+  margin-top: 10px;
   position: absolute;
-  margin-left: -7vw;
+  margin-left: -10vw;
+
 }
+
 
 /* preco */
 #preco {
@@ -185,6 +199,7 @@
   height: 90%;
   backdrop-filter: blur(10px);
   border-radius: 5px;
+  
 }
 
 #preco h1 {
@@ -197,13 +212,9 @@
   font-family: Sora;
   color: var(--color-text);
 }
-
-
-
-
-
-
-
+#preco button{
+  border-radius: 5px;
+}
 
 
 
@@ -346,6 +357,7 @@
   overflow: hidden;
   overflow-y: scroll;
   
+  
  
     
   }
@@ -412,6 +424,8 @@
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
+    padding: 0.5rem;
+    text-align:center ;
 
     
   }
@@ -423,6 +437,7 @@
     justify-content: center;
     flex-direction: column;
     width: 100%;
+    padding: 0.5rem;
     height: 20%;
    
   }
@@ -440,6 +455,7 @@
     position: absolute;
     right: 0;
     top: 0;
+    padding: 0.5rem;
     font-size: 3vw;
     
 
@@ -457,7 +473,7 @@
     position: absolute;
     right: 0;
     bottom:0;
-    margin-right: -1vw;
+    margin-right: -0.5vw;
     font-size: 5vw;
    
   }
